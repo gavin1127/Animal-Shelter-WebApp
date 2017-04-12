@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Animal Shelter</title>
+
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{'/css/styles.css'}" />
+</head>
+<body>
+
+<h1>Animal Shelter</h1>
+<nav>
+    <ul>
+        <li><a href="index.html" th:href="@{'/'}">Home</a></li>
+    </ul>
+</nav>
+<table>
+    <tr>
+        <th>Animal Id</th>
+        <th>Name</th>
+        <th>Species</th>
+    </tr>
+    <tr th:each="animal : ${animals}">
+        <td th:text="${animal.getAnimalid()}">1</td>
+        <td><a th:text="${animal.getName()}">names</a></td>
+        <td th:text="${animal.getSpecies()}">dog</td>
+    </tr>
+    </table>
+</body>
+</html>
