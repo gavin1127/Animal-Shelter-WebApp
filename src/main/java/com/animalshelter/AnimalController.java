@@ -12,15 +12,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
     @Controller
     public class AnimalController {
 
-        @Autowired
-        AnimalRepository repo;
+    @Autowired
+    AnimalRepository repo;
 
-        @RequestMapping("/")
-        public String listPeople(Model model){
+    @RequestMapping("/")
+    public String home(Model model) {
 
-            model.addAttribute("animals", repo.listAnimals());
+        model.addAttribute("animals", repo.listAnimals());
 
-            return "index";
-        }
+        return "index";
     }
+
+    @RequestMapping("/list")
+    public String listanimal(Model model) {
+
+        model.addAttribute("animals", repo.listAnimals());
+
+        return "animallist";
+    }
+    @RequestMapping("/edit")
+    public String editanimal(Model model) {
+
+        model.addAttribute("animals", repo.listAnimals());
+
+        return "edit";
+    }
+}
 

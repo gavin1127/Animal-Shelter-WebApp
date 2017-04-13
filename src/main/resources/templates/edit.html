@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" />
+<link rel="stylesheet" href="../static/css/styles.css" th:href="@{'/css/styles.css'}" />
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<h1>The Animal Shelter</h1>
+<nav>
+    <ul>
+        <li><a href="index.html" th:href="@{'/'}">Home</a></li>
+    </ul>
+</nav>
+<form>
+<label>
+    <span>Name:</span>
+    <input type="text" name="Name" th:value="${'animal.getName()'}"/>
+</label>
+    <br/>
+<label>
+    <span>Species:</span>
+    <input type="text" species="Species" th:value="${'animal.getSpecies()'}" />
+</label>
+<br/>
+<label>
+    <span>Breed:</span>
+    <input type="text" breed="Breed" th:value="${'animal.getBreed()'}"  />
+</label>
+    <br/>
+    <label>
+        <span>Description:</span>
+        <input type="text" description="Description" th:value="${'animal.getDecscrition()'}" />
+    </label>
+<br/>
+<button>Save Animal</button>
+</form>
+
+
+</body>
+</html>
