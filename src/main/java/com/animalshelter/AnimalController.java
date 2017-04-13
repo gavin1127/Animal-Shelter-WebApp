@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
         @RequestMapping("/")
         public String listPeople(Model model){
 
-            model.addAttribute("animal", repo.listAnimals());
+            model.addAttribute("animals", repo.listAnimals());
 
             return "index";
         }

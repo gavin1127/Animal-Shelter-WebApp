@@ -2,12 +2,14 @@ package com.animalshelter; /**
  * Created by Gavin on 3/29/17.
  */
 public class Animal {
+    int Id;
     String Name;
     String Species;
     String Breed;
     String Description;
 
-    public Animal(int animalid, String Name, String Species, String Breed, String Description) {
+    public Animal(int Id, String Name, String Species, String Breed, String Description) {
+        this.Id = Id;
         this.Name = Name;
         this.Species = Species;
         this.Breed = Breed;
@@ -18,6 +20,7 @@ public class Animal {
 
     }
 
+    public int getAnimalid(){return Id;}
 
     public String getName() {
         return Name;
