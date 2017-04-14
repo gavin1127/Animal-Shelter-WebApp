@@ -13,26 +13,29 @@
         <li><a href="index.html" th:href="@{'/'}">Home</a></li>
     </ul>
 </nav>
-<form>
+<form action="index.html" th:action="@{'/saveAnimal'}">
 <label>
     <span>Name:</span>
-    <input type="text" name="Name" th:value="${'animal.getName()'}"/>
+    <input type="text" name="Name" th:values="${animal.getName()}"/>
 </label>
     <br/>
+
 <label>
     <span>Species:</span>
-    <input type="text" species="Species" th:value="${'animal.getSpecies()'}" />
+    <input type="text" species="Species" th:values="${animal.getSpecies()}" />
 </label>
 <br/>
+
 <label>
     <span>Breed:</span>
-    <input type="text" breed="Breed" th:value="${'animal.getBreed()'}"  />
+    <input type="text" breed="Breed" th:values="${animal.getBreed()}"  />
 </label>
     <br/>
     <label>
         <span>Description:</span>
-        <input type="text" description="Description" th:value="${'animal.getDecscrition()'}" />
+        <input type="text" description="Description" th:values="${animal.getDecscrition()}" />
     </label>
+
 <br/>
 <button>Save Animal</button>
 </form>

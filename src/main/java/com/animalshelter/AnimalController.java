@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.SQLException;
+
 /**
  * Created by Gavin on 4/5/17.
  */
@@ -37,5 +39,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
         return "edit";
     }
+    @RequestMapping("/delete")
+    public String deleteanimal(Integer animalId){
+
+        // delete this schmuck
+        repo.deleteanimal(animalId);
+
+        return "redirect:/";
+    }
+    @RequestMapping("/saveAnimal")
+    public String savePerson(Animal animal){
+
+            repo.AddAnimal(animal);
+
+        return "redirect:/";
+
+    }
+
 }
 

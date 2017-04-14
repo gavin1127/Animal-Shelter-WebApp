@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Component
 public class AnimalRepository {
+
     @Autowired
     JdbcTemplate template;
 
@@ -28,7 +29,7 @@ public class AnimalRepository {
                         rs.getString("animal_description")));
 
         }
-    public void AddAnimal(Animal animal)throws SQLException{
+    public void AddAnimal(Animal animal){
         template.update("INSERT INTO animals" +"(animal_name,"+ "animal_species,"+ " animal_breed,"+ " animal_description) " + "VALUES (?,?,?,?)",
                animal.getName(),
                animal.getSpecies(),
@@ -36,4 +37,12 @@ public class AnimalRepository {
                animal.getDescription());
 
     }
+    public void deleteanimal(Integer Id){
+        template.update("DELETE FROM animal_name WHERE animal_id = ?" , Id);
+        template.update("DELETE FROM animal_species WHERE animal_id = ?" , Id);
+        template.update("DELETE FROM animal_breed WHERE animal_id = ?" , Id);
+        template.update("DELETE FROM animal_description WHERE animal_id = ?" , Id);
+    }
+
+
 }
