@@ -10,30 +10,31 @@
 <h1>The Animal Shelter</h1>
 <nav>
     <ul>
-        <li><a href="index.html" th:href="@{'/'}">Home</a></li>
+        <li><a href="index.html" th:href="@{/}">Home</a></li>
     </ul>
 </nav>
-<form action="index.html" th:action="@{'/saveAnimal'}">
+*<div th:text="${animal}"></div>*
+<form action="index.html" method="post" th:action="@{/SaveAnimal}" th:object="${animal}">
 <label>
     <span>Name:</span>
-    <input type="text" name="Name" th:values="${animal.getName()}"/>
+    <input type="text" name="Name" value="" th:value="*{Name}"/>
 </label>
     <br/>
 
 <label>
     <span>Species:</span>
-    <input type="text" species="Species" th:values="${animal.getSpecies()}" />
+    <input type="text" species="Species" th:value="*{Species}"/>
 </label>
 <br/>
 
 <label>
     <span>Breed:</span>
-    <input type="text" breed="Breed" th:values="${animal.getBreed()}"  />
+    <input type="text" breed="Breed" th:value="*{Breed}"  />
 </label>
     <br/>
     <label>
         <span>Description:</span>
-        <input type="text" description="Description" th:values="${animal.getDecscrition()}" />
+        <input type="text" description="Description" th:value="*{Description}" />
     </label>
 
 <br/>

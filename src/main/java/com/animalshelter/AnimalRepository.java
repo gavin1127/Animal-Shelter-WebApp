@@ -3,9 +3,6 @@ package com.animalshelter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,9 +15,10 @@ public class AnimalRepository {
     @Autowired
     JdbcTemplate template;
 
-    public List<Animal> listAnimals() {
-        ArrayList<Animal> animals = new ArrayList<>();
-        return template.query("SELECT * FROM animals ORDER BY animal_id",
+    public List<Animal> listAnimals(String name) {
+        return template.query("SELECT * FROM animals Where lower(animal_name) " + "Like lower(?) " +
+                        "and lower(animal_species) LIKE lower(?) order by animal_id "+"LIMIT 200",
+                new Object[] {"%"+name+"%", "%"+name+"%"},
                 (rs, i) -> new Animal(
                         rs.getInt("animal_id"),
                         rs.getString("animal_name"),
@@ -29,20 +27,37 @@ public class AnimalRepository {
                         rs.getString("animal_description")));
 
         }
-    public void AddAnimal(Animal animal){
-        template.update("INSERT INTO animals" +"(animal_name,"+ "animal_species,"+ " animal_breed,"+ " animal_description) " + "VALUES (?,?,?,?)",
-               animal.getName(),
-               animal.getSpecies(),
-               animal.getBreed(),
-               animal.getDescription());
-
-    }
-    public void deleteanimal(Integer Id){
-        template.update("DELETE FROM animal_name WHERE animal_id = ?" , Id);
-        template.update("DELETE FROM animal_species WHERE animal_id = ?" , Id);
-        template.update("DELETE FROM animal_breed WHERE animal_id = ?" , Id);
-        template.update("DELETE FROM animal_description WHERE animal_id = ?" , Id);
+     public Animal specificAnimal(Integer id) {
+        return template.queryForObject("SELECT * FROM animals Where animal_id=?" ,
+                new Object[]{id},
+                (rs, i) -> new Animal(
+                        rs.getInt("animal_id"),
+                        rs.getString("animal_name"),
+                        rs.getString("animal_species"),
+                        rs.getString("animal_breed"),
+                        rs.getString("animal_description")));
     }
 
 
+        public void SaveAnimal(Animal animal){
+        if (animal.getAnimalid() == null){
+            template.update("INSERT INTO animals" + "(animal_name,"+ "animal_species,"+ "animal_breed,"+ "animal_description) " +
+                            "VALUES (?,?,?,?)",
+                    new Object[]{
+                    animal.getName(),
+                    animal.getSpecies(),
+                    animal.getBreed(),
+                    animal.getDescription()});
+        } else {
+            template.update("UPDATE animals SET " + "animal_name = ?," +"animal_species = ?," + "animal_breed = ?," + "animal_description = ?" + "WHERE animal_id = ?",
+                    new Object[]{
+                            animal.getName(),
+                            animal.getSpecies(),
+                            animal.getBreed(),
+                            animal.getDescription()});
+        }
+    }
+    public void deleteAnimal(Integer Id){
+            template.update("DELETE FROM animals WHERE animal_id = ?", Id);
+    }
 }

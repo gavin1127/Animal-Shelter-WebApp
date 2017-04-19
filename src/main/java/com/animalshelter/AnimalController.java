@@ -1,10 +1,12 @@
 package com.animalshelter;
 
-import com.animalshelter.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
 
@@ -16,45 +18,32 @@ import java.sql.SQLException;
 
     @Autowired
     AnimalRepository repo;
-
-    @RequestMapping("/")
-    public String home(Model model) {
-
-        model.addAttribute("animals", repo.listAnimals());
-
+    @GetMapping("/")
+    public String Home(){
         return "index";
     }
-
-    @RequestMapping("/list")
-    public String listanimal(Model model) {
-
-        model.addAttribute("animals", repo.listAnimals());
-
+    @GetMapping("/list")
+    public String listAnimals (Model model, @RequestParam(defaultValue = "") String search){
+        model.addAttribute("search", search);
+        model.addAttribute("animal", repo.listAnimals(search));
+        model.addAttribute("size", repo.listAnimals(search).size());
         return "animallist";
+
     }
-    @RequestMapping("/edit")
-    public String editanimal(Model model) {
-
-        model.addAttribute("animals", repo.listAnimals());
-
+    @GetMapping("/edit")
+    public String showAnimalFrom(Model model, Integer animalId){
+        if (animalId != null){
+            model.addAttribute("animal", repo.specificAnimal(animalId));
+        }
+        else{
+            model.addAttribute("animal", new Animal());
+        }
         return "edit";
     }
-    @RequestMapping("/delete")
-    public String deleteanimal(Integer animalId){
-
-        // delete this schmuck
-        repo.deleteanimal(animalId);
-
-        return "redirect:/";
-    }
-    @RequestMapping("/saveAnimal")
-    public String savePerson(Animal animal){
-
-            repo.AddAnimal(animal);
-
-        return "redirect:/";
-
-    }
+    @PostMapping("/saveAnimal")
+     public String showAnimal(Animal animal){
+        repo.SaveAnimal(animal);
+        return "/saveAnimal";
+       }
 
 }
-

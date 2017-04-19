@@ -8,7 +8,7 @@ public class Animal {
     String Breed;
     String Description;
 
-    public Animal(int Id, String Name, String Species, String Breed, String Description) {
+    public Animal(Integer Id, String Name, String Species, String Breed, String Description) {
         this.Id = Id;
         this.Name = Name;
         this.Species = Species;
@@ -16,11 +16,11 @@ public class Animal {
         this.Description = Description;
     }
 
-    public Animal(String name, String species, String breed, String description) {
+    public Animal() {
 
     }
 
-    public int getAnimalid(){return Id;}
+    public Integer getAnimalid(){return Id;}
 
     public String getName() {
         return Name;

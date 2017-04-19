@@ -14,6 +14,14 @@
         <li><a href="index.html" th:href="@{'/'}">Home</a></li>
     </ul>
 </nav>
+<form action="animallist.html" th:action="@{/list}" method="get">
+<label>
+    <span>Search:</span>
+    <input type="text" name="name" th:value="${search}" />
+    <button>Search</button>
+</label>
+</form>
+
 <table>
     <tr>
         <th>Animal Id</th>
@@ -24,10 +32,14 @@
         <td th:text="${animal.getAnimalid()}">1</td>
         <td><a th:text="${animal.getName()}">names</a></td>
         <td th:text="${animal.getSpecies()}">dog</td>
-
-        <!--<a href="animallist.html" th:href="@{'/animals?animalId=' + ${aniaml.getanimalid()}}">
-            <img src="../static/delete.png" th:src="@{'delete.png'}" />
-        </a>-->
+        <td>
+            <a href="/list" th:action="@{'/delete'}">
+            <img class="delete" src="../static/DeleteIcon.png" th:src="@{'DeleteIcon.png'}"/>
+            </a>
+        </td>
+        <td>
+            <img class="edit" src="../static/EditIcon.png" th:src="@{'EditIcon.png'}"/>
+        </td>
     </tr>
     </table>
 
